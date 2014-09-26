@@ -1,0 +1,31 @@
+{
+  "name": "logger",
+  "version": "1.0.0",
+  "description": "Framework logger for ark team purposes",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/arkcore/logger.git"
+  },
+  "dependencies": {
+    "bunyan": "^1.1.0",
+    "lodash-node": "^2.4.1",
+    "moment": "^2.8.3",
+    "cli-color": "^0.3.2",
+    "redis": "^0.12.1",
+    "hiredis": "^0.1.17"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "mocha-multi": "^0.4.1",
+    "chai": "~1.9.1"
+  },
+  "scripts": {
+    "test": "multi='list=- xunit=test-report.xml' ./node_modules/.bin/mocha -R mocha-multi"
+  },
+  "bugs": {
+    "url": "https://github.com/arkcore/logger/issues"
+  },
+  "homepage": "https://github.com/arkcore/logger",
+  "author": "Arkcore Team",
+  "license": "Private"
+}

@@ -1,0 +1,11 @@
+{
+  "console": {
+      "level": "debug"
+  },
+  "logstash": {
+      "level": "info",
+      "host": "10.10.100.80",
+      "port": 6998,
+      "db": 1
+    }
+}

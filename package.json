@@ -1,6 +1,6 @@
 {
-  "name": "logger",
-  "version": "1.0.0",
+  "name": "arklogger",
+  "version": "1.0.1",
   "description": "Framework logger for ark team purposes",
   "repository": {
     "type": "git",

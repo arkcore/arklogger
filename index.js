@@ -55,6 +55,13 @@ Logger.prototype.parseConfig = function (config) {
                 level: val.level
             });
             break;
+        case 'redis':
+            this.appendStream({
+                stream: new Stream.redis(val),
+                type: 'raw',
+                level: val.level
+            });
+            break;
         case 'file':
             this.appendStream(val);
             break;

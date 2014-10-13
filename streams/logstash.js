@@ -182,7 +182,7 @@ LogstashStream.prototype.flush = function () {
 };
 
 LogstashStream.prototype.sendLog = function (message) {
-  this.socket.write(message + '\n');
+  this.socket.write(JSON.stringify(message) + '\n');
 };
 
 LogstashStream.prototype.send = function logstashSend(message) {

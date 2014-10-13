@@ -2,7 +2,7 @@
   "console": {
       "level": "debug"
   },
-  "logstash": {
+  "redis": {
       "level": "info",
       "host": "10.10.100.80",
       "port": 6998,

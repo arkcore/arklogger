@@ -2,5 +2,6 @@
 
 module.exports = {
     console: require('./console'),
-    logstash: require('./logstash')
+    logstash: require('./logstash'),
+    redis: require('./redis')
 };

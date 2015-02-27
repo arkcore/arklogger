@@ -26,11 +26,11 @@ function mapFields(obj) {
 
     obj.time = obj.time.toISOString();
 
-    _.each(obj, function(v, k) {
-        if (fieldMap[k]) {
-            ret[fieldMap[k]] = v;
+    _.forOwn(obj, function (value, key) {
+        if (fieldMap[key]) {
+            ret[fieldMap[key]] = value;
         } else {
-            ret[k] = v;
+            ret[key] = value;
         }
     });
 

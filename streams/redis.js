@@ -5,7 +5,7 @@ var redis = require('redis');
 var bunyan = require('bunyan');
 
 var fieldMap = {
-    'name': 'type',
+    'name': '@type',
     'msg': 'message',
     'time': '@timestamp'
 };

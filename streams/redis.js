@@ -1,6 +1,6 @@
 'use strict';
 
-var _ = require('lodash-node');
+var _ = require('lodash');
 var redis = require('redis');
 var bunyan = require('bunyan');
 
@@ -9,8 +9,6 @@ var fieldMap = {
     'msg': 'message',
     'time': '@timestamp'
 };
-
-function noop() {}
 
 function mapFields(obj) {
     var ret = {};
@@ -43,14 +41,18 @@ function Stream(cfg) {
     this.key = cfg.key || 'logstash';
     this.pubsub = !!cfg.pubsub;
 
-    this.redis = redis.createClient(cfg.port || 6379, cfg.host || '127.0.0.1', {
+    // accepts existing redis client instance
+    this.redis = cfg.redis || redis.createClient(cfg.port || 6379, cfg.host || '127.0.0.1', {
         no_ready_check: true,
         retry_max_delay: 5000
     });
-    this.redis.on('error', noop); // mute error and keep retrying
+
+    this.redis.on('error', _.noop); // mute error and keep retrying
+
     if (cfg.db) {
-        this.redis.select(cfg.db, noop);
+        this.redis.select(cfg.db, _.noop);
     }
+
     if (!cfg.pubsub) {
         this.redis.unref();
     }

@@ -2,7 +2,7 @@
 
 var bunyan = require('bunyan');
 var Stream = require('./streams');
-var _ = require('lodash-node');
+var _ = require('lodash');
 
 
 function Logger(name, streams) {

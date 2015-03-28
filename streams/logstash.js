@@ -7,7 +7,7 @@ var net = require('net'),
     tls = require('tls'),
     util = require('util'),
     extend = util._extend,
-    _ = require('lodash-node');
+    _ = require('lodash');
 
 var ECONNREFUSED_REGEXP = /ECONNREFUSED/;
 
@@ -76,7 +76,7 @@ LogstashStream.prototype.write = function logstashWrite(entry) {
   };
 
   if (typeof(this.type) === 'string') {
-    msg['type'] = this.type;
+    msg.type = this.type;
   }
 
   delete rec.time;
@@ -198,4 +198,4 @@ LogstashStream.prototype.send = function logstashSend(message) {
   }
 };
 
-module.exports = LogstashStream
+module.exports = LogstashStream;

@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
-var redis = require('redis');
+var Redis = require('ioredis');
 var bunyan = require('bunyan');
 
 var fieldMap = {
@@ -42,9 +42,9 @@ function Stream(cfg) {
     this.pubsub = !!cfg.pubsub;
 
     // accepts existing redis client instance
-    this.redis = cfg.redis || redis.createClient(cfg.port || 6379, cfg.host || '127.0.0.1', {
-        no_ready_check: true,
-        retry_max_delay: 5000
+    this.redis = cfg.redis || new Redis(cfg.port || 6379, cfg.host || '127.0.0.1', {
+        enableReadyCheck: false,
+        enableOfflineQueue: false
     });
 
     this.redis.on('error', _.noop); // mute error and keep retrying
@@ -53,17 +53,14 @@ function Stream(cfg) {
         this.redis.select(cfg.db, _.noop);
     }
 
-    if (!cfg.pubsub) {
-        this.redis.unref();
-    }
 }
 
 Stream.prototype.write = function(item) {
     var data = JSON.stringify(mapFields(item));
     if (this.pubsub) {
-        this.redis.publish(this.key, data);
+        this.redis.publish(this.key, data).catch(_.noop);
     } else {
-        this.redis.rpush(this.key, data);
+        this.redis.rpush(this.key, data).catch(_.noop);
     }
 };
 

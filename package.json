@@ -1,6 +1,6 @@
 {
   "name": "arklogger",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Set of several presets for bunyan logger",
   "repository": {
     "type": "git",
@@ -9,7 +9,7 @@
   "dependencies": {
     "bunyan": "^1.4.0",
     "cli-color": "^1.0.0",
-    "ioredis": "^1.4.0",
+    "ioredis": "^1.5.1",
     "lodash": "^3.9.3",
     "moment": "^2.10.3"
   },

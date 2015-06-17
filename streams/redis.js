@@ -45,16 +45,13 @@ function Stream(cfg) {
     this.redis = cfg.redis || new Redis(cfg.port || 6379, cfg.host || '127.0.0.1', {
         enableReadyCheck: false,
         enableOfflineQueue: false,
-        lazyConnect: true
+        lazyConnect: true,
+        db: cfg.db || 0
     });
 
     this.redis.connect().catch(function () {
         console.error('Error connecting to redis');
     });
-
-    if (cfg.db) {
-        this.redis.select(cfg.db).catch(_.noop);
-    }
 
 }
 

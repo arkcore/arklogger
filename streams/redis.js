@@ -3,6 +3,7 @@
 var _ = require('lodash');
 var Redis = require('ioredis');
 var bunyan = require('bunyan');
+var debug = require('debug')('arklogger');
 
 var fieldMap = {
     'name': 'type',
@@ -50,9 +51,8 @@ function Stream(cfg) {
     });
 
     this.redis.connect().catch(function () {
-        console.error('Error connecting to redis');
+        debug('[arklogger startup] Error connecting to redis');
     });
-
 }
 
 Stream.prototype.write = function(item) {

@@ -56,11 +56,19 @@ function Stream(cfg) {
     this.pubsub = !!cfg.pubsub;
 
     // accepts existing redis client instance
-    this.redis = cfg.redis || new Redis(port, host, {
+    var redis = this.redis = cfg.redis || new Redis(port, host, {
         enableReadyCheck: false,
-        enableOfflineQueue: false,
+        enableOfflineQueue: true,
         lazyConnect: true,
-        db: db
+        db: db,
+        retryStrategy: function (times) {
+            if (times > 10 && redis.offlineQueue.length > 500) {
+                redis.offlineQueue.shift();
+            }
+
+            var delay = Math.min(times * 2, 2000);
+            return delay;
+        }
     });
 
     this.redis.connect().catch(function () {

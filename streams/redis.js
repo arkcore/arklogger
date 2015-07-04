@@ -1,5 +1,6 @@
 'use strict';
 
+var instances = {};
 var _ = require('lodash');
 var Redis = require('ioredis');
 var bunyan = require('bunyan');
@@ -39,15 +40,27 @@ function mapFields(obj) {
 
 function Stream(cfg) {
     cfg = cfg || {};
+
+    var port = cfg.port || 6379;
+    var host = cfg.host || '127.0.0.1';
+    var db = cfg.db || 0;
+
+    // make it a single connection per redis
+    var id = [port, host, db].join(':');
+    if (instances[id]) {
+      return instances[id];
+    }
+    instances[id] = this;
+
     this.key = cfg.key || 'logstash';
     this.pubsub = !!cfg.pubsub;
 
     // accepts existing redis client instance
-    this.redis = cfg.redis || new Redis(cfg.port || 6379, cfg.host || '127.0.0.1', {
+    this.redis = cfg.redis || new Redis(port, host, {
         enableReadyCheck: false,
         enableOfflineQueue: false,
         lazyConnect: true,
-        db: cfg.db || 0
+        db: db
     });
 
     this.redis.connect().catch(function () {

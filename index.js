@@ -38,33 +38,33 @@ Logger.prototype.parseConfig = function (config) {
     for (var key in config) {
         var val = config[key];
         switch (key) {
-        case 'name':
-            this.cfg.name = val;
-            break;
-        case 'console':
-            this.appendStream({
-                stream: new Stream.console(val),
-                type: 'raw',
-                level: val.level
-            });
-            break;
-        case 'logstash':
-            this.appendStream({
-                stream: new Stream.logstash(val),
-                type: 'raw',
-                level: val.level
-            });
-            break;
-        case 'redis':
-            this.appendStream({
-                stream: new Stream.redis(val),
-                type: 'raw',
-                level: val.level
-            });
-            break;
-        case 'file':
-            this.appendStream(val);
-            break;
+            case 'name':
+                this.cfg.name = val;
+                break;
+            case 'console':
+                this.appendStream({
+                    stream: new Stream.console(val),
+                    type: 'raw',
+                    level: val.level
+                });
+                break;
+            case 'logstash':
+                this.appendStream({
+                    stream: new Stream.logstash(val),
+                    type: 'raw',
+                    level: val.level
+                });
+                break;
+            case 'redis':
+                this.appendStream({
+                    stream: new Stream.redis(val),
+                    type: 'raw',
+                    level: val.level
+                });
+                break;
+            case 'file':
+                this.appendStream(val);
+                break;
         }
     }
 };
